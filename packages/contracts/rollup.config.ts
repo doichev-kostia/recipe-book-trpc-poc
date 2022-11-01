@@ -2,11 +2,18 @@ import path from "path";
 import { RollupOptions } from "rollup";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonJS from "@rollup/plugin-commonjs";
+import babel from "@rollup/plugin-babel";
 
 const root = path.resolve(__dirname, ".");
 const src = path.resolve(root, "src");
 const build = path.resolve(root, "build");
 const entry = path.resolve(src, "index.ts");
+
+const babelPlugin = babel({
+	babelHelpers: "bundled",
+	exclude: /node_modules/,
+	extensions: [".ts", ".tsx", ".native.ts"],
+});
 
 const config: RollupOptions = {
 	input: entry,
@@ -28,7 +35,7 @@ const config: RollupOptions = {
 			exports: "named",
 		},
 	],
-	plugins: [nodeResolve({ extensions: [".ts", ".tsx"] }), commonJS()],
+	plugins: [babelPlugin, nodeResolve({ extensions: [".ts", ".tsx"] }), commonJS()],
 };
 
 export default config;
