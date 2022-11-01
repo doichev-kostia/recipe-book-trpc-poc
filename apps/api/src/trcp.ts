@@ -2,11 +2,14 @@ import { inferAsyncReturnType, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 
 // created for each request
-export const createContext = ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
+export const createContext = ({
+	req,
+}: trpcExpress.CreateExpressContextOptions) => {
 	const accessToken = req.headers["x-auth"];
 
 	return {
 		accessToken,
+		em: req.em,
 	};
 };
 export type Context = inferAsyncReturnType<typeof createContext>;
