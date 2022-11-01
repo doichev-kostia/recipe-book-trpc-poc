@@ -6,4 +6,4 @@ import { App } from "./app";
 	app.listen();
 })();
 
-export type { AppRouter } from "app";
+export type { AppRouter } from "./router";

@@ -2,14 +2,15 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { createContext, mergeRouters } from "./trcp";
-import { authenticationRouter } from "./routes/authentication";
-import { usersRouter } from "./routes/user";
+import { createContext } from "./trcp";
+import { appRouter } from "./router";
 
-const appRouter = mergeRouters(authenticationRouter, usersRouter);
-
-// export type definition of API
-export type AppRouter = typeof appRouter;
+// TODO: REPLACE WITH REAL SENTRY
+const Sentry = {
+	captureException: (err: any) => {
+		console.error(err);
+	},
+};
 
 export class App {
 	public readonly host: Express;
@@ -44,6 +45,11 @@ export class App {
 			trpcExpress.createExpressMiddleware({
 				router: appRouter,
 				createContext,
+				onError: ({ error, type, path, input, ctx, req }) => {
+					if (error.code === "INTERNAL_SERVER_ERROR") {
+						Sentry.captureException(error);
+					}
+				},
 			})
 		);
 	}
