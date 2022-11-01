@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"outDir": "./build",
+		"allowJs": true,
+		"strict": true,
+		"sourceMap": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"emitDecoratorMetadata": true,
+		"resolveJsonModule": true,
+		"incremental": true,
+		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
+		"lib": [
+			"es2019",
+			"es6",
+			"dom",
+			"dom.iterable"
+		],
+		"baseUrl": "src",
+		"paths": {
+			"*": [
+				"./*"
+			]
+		}
+	},
+	"include": [
+		"src/**/*"
+	]
+}
