@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
-		"module": "ESNext",
+		"module": "commonjs",
 		"moduleResolution": "Node",
 		"declaration": true,
 		"allowSyntheticDefaultImports": true,
@@ -9,9 +9,7 @@
 		"allowJs": true,
 		"strict": true,
 		"sourceMap": true,
-		"experimentalDecorators": true,
 		"esModuleInterop": true,
-		"emitDecoratorMetadata": true,
 		"resolveJsonModule": true,
 		"incremental": true,
 		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
