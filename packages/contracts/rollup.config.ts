@@ -1,1 +1,34 @@
-// TODO: Add multi-module rollup config for contracts. It should support cjs, esm, and umd builds.
+import path from "path";
+import { RollupOptions } from "rollup";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import commonJS from "@rollup/plugin-commonjs";
+
+const root = path.resolve(__dirname, ".");
+const src = path.resolve(root, "src");
+const build = path.resolve(root, "build");
+const entry = path.resolve(src, "index.ts");
+
+const config: RollupOptions = {
+	input: entry,
+	output: [
+		{
+			format: "esm",
+			file: `${build}/index.mjs`,
+			sourcemap: true,
+		},
+		{
+			format: "esm",
+			file: `${build}/index.esm.js`,
+			sourcemap: true,
+		},
+		{
+			format: "cjs",
+			file: `${build}/index.js`,
+			sourcemap: true,
+			exports: "named",
+		},
+	],
+	plugins: [nodeResolve({ extensions: [".ts", ".tsx"] }), commonJS()],
+};
+
+export default config;

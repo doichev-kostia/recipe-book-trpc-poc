@@ -1,24 +1,43 @@
 {
-  "name": "@trpc-poc/contracts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "zod": "^3.19.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@rollup/plugin-babel": "^6.0.2",
-    "@rollup/plugin-commonjs": "^23.0.2",
-    "rollup": "^2.79.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.6.4"
-  }
+	"name": "@trpc-poc/contracts",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"scripts": {
+		"build": "rollup --config rollup.config.js && tsc -b",
+		"build:clean": "pnpm i && pnpm clean:build && pnpm build",
+		"clean:build": "pnpm rimraf build",
+		"clean:modules": "pnpm rimraf node_modules",
+		"watch": "tsc -w"
+	},
+	"types": "build/index.d.ts",
+	"module": "build/index.esm.js",
+	"main": "build/index.js",
+	"exports": {
+		".": {
+			"types": "./build/index.d.ts",
+			"import": "./build/index.mjs",
+			"default": "./build/index.js",
+			"commonjs": "./build/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"zod": "^3.19.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.0.0",
+		"@rollup/plugin-babel": "^6.0.2",
+		"@rollup/plugin-commonjs": "^23.0.2",
+		"@rollup/plugin-node-resolve": "^15.0.1",
+		"@types/node": "16.11.7",
+		"rimraf": "^3.0.2",
+		"rollup": "^2.79.1",
+		"rollup-plugin-terser": "^7.0.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.6.4"
+	}
 }
