@@ -1,4 +1,5 @@
-import { publicProcedure, router } from "../trcp";
+import { router } from "trcp";
+import { publicProcedure } from "procedures";
 
 export const usersRouter = router({
 	getUser: publicProcedure.query(() => {

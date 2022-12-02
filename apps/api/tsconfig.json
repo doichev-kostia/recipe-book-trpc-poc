@@ -1,9 +1,22 @@
 {
 	"compilerOptions": {
+		"typeRoots": [
+			"node_modules/@types",
+			"../../node_modules/@types",
+			"types/declaration.d.ts"
+		],
+		"types": [
+			"node",
+			"jest",
+			"express"
+		],
+		"composite": true,
 		"target": "ESNext",
 		"module": "commonjs",
+		"resolveJsonModule": true,
 		"moduleResolution": "Node",
 		"declaration": true,
+		"strictPropertyInitialization": false,
 		"allowSyntheticDefaultImports": true,
 		"outDir": "./build",
 		"allowJs": true,
@@ -13,7 +26,6 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"resolveJsonModule": true,
 		"incremental": true,
 		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
 		"lib": [
@@ -23,19 +35,29 @@
 			"dom.iterable"
 		],
 		"baseUrl": "./src",
+		"rootDir": "./src",
 		"paths": {
 			"*": [
 				"./*"
+			],
+			"@trpc-poc/contracts": [
+				"../../packages/contracts/src"
 			]
 		},
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true
 	},
 	"include": [
-		"src/**/*",
-		"types/**/*"
+		"./src/**/*",
+		"./types/**/*"
 	],
 	"exclude": [
 		"node_modules",
-		"build"
+		"build",
+	],
+	"references": [
+		{
+			"path": "../../packages/contracts/tsconfig.json"
+		}
 	]
 }

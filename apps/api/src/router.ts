@@ -1,5 +1,5 @@
 import { router } from "./trcp";
-import { authenticationRouter } from "./routes/authentication";
+import { authenticationRouter } from "./routes/authentication/authentication.route";
 import { usersRouter } from "./routes/user";
 
 export const appRouter = router({

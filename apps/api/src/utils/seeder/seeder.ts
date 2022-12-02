@@ -4,7 +4,7 @@ import { EntitySeeder } from "utils/seeder/entity.seeder";
 import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 import { setFixtureDate } from "utils/helpers/date";
-import { paths } from "paths";
+import { paths } from "../../paths";
 
 export type SeederEntityMap = {
 	[key: string]: Base<any>[];
@@ -13,7 +13,8 @@ export type SeederEntityMap = {
 };
 
 export class DatabaseSeeder {
-	private readonly DROP_COMMAND = "DROP SCHEMA public CASCADE; CREATE SCHEMA public;";
+	private readonly DROP_COMMAND =
+		"DROP SCHEMA public CASCADE; CREATE SCHEMA public;";
 	public seeders: EntitySeeder<Base<any>>[];
 
 	public orm: MikroORM<PostgreSqlDriver>;
@@ -23,9 +24,12 @@ export class DatabaseSeeder {
 	constructor(orm: MikroORM<PostgreSqlDriver>) {
 		setFixtureDate();
 		this.entities = {
-			get: <T extends Base<any>>(type: ClassType<T>): T[] => this.entities[type.name.toLowerCase()] as T[],
+			get: <T extends Base<any>>(type: ClassType<T>): T[] =>
+				this.entities[type.name.toLowerCase()] as T[],
 		} as SeederEntityMap;
-		const seeders = importClasses<EntitySeeder<Base<any>>>([`${paths.root}/**/seeders/**/*.seeder.js`]);
+		const seeders = importClasses<EntitySeeder<Base<any>>>([
+			`${paths.root}/**/seeders/**/*.seeder.js`,
+		]);
 		this.seeders = seeders.map((seeder) => new seeder(orm));
 		this.orm = orm;
 	}
@@ -41,14 +45,19 @@ export class DatabaseSeeder {
 			while (this.seeders.some((seeder) => !seeder.isDone)) {
 				await Promise.all(
 					this.seeders.map(async (seeder) => {
-						const isEveryDependencySeeded = seeder.dependencies.every((dependency) => {
-							const dependencySeeder = this.seeders.find((seeder) => seeder instanceof dependency);
-							return dependencySeeder?.isDone;
-						});
+						const isEveryDependencySeeded =
+							seeder.dependencies.every((dependency) => {
+								const dependencySeeder = this.seeders.find(
+									(seeder) => seeder instanceof dependency
+								);
+								return dependencySeeder?.isDone;
+							});
 						if (isEveryDependencySeeded && !seeder.isDone) {
 							await seeder.seed(this.orm.em, this.entities);
 							seeder.isDone = true;
-							const entityName = seeder.constructor.name.replace("Seeder", "").toLowerCase();
+							const entityName = seeder.constructor.name
+								.replace("Seeder", "")
+								.toLowerCase();
 							this.entities[entityName] = seeder.entities;
 						}
 					})

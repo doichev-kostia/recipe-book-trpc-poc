@@ -12,7 +12,7 @@ const entry = path.resolve(src, "index.ts");
 const babelPlugin = babel({
 	babelHelpers: "bundled",
 	exclude: /node_modules/,
-	extensions: [".ts", ".tsx", ".native.ts"],
+	extensions: [".ts", ".tsx"],
 });
 
 const config: RollupOptions = {
@@ -35,7 +35,11 @@ const config: RollupOptions = {
 			exports: "named",
 		},
 	],
-	plugins: [babelPlugin, nodeResolve({ extensions: [".ts", ".tsx"] }), commonJS()],
+	plugins: [
+		babelPlugin,
+		nodeResolve({ extensions: [".ts", ".tsx"] }),
+		commonJS(),
+	],
 };
 
 export default config;

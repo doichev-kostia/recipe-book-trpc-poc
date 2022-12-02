@@ -11,4 +11,5 @@ export interface AccessTokenData extends BaseTokenData {
 		id: string;
 		type: RoleType;
 	};
+	roles: RoleType[];
 }

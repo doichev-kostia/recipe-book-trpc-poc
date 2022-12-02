@@ -9,12 +9,18 @@ export class Builder<TEntity extends Base<any>> {
 	private rangeEnd: number;
 	private orm!: MikroORM<PostgreSqlDriver>;
 
-	private constructor(private entityType: ClassType<TEntity>, private list: TEntity[]) {
+	private constructor(
+		private entityType: ClassType<TEntity>,
+		private list: TEntity[]
+	) {
 		this.rangeStart = 0;
 		this.rangeEnd = list.length;
 	}
 
-	public static list<TEntity extends Base<any>>(entityType: ClassType<TEntity>, size: number): Builder<TEntity> {
+	public static list<TEntity extends Base<any>>(
+		entityType: ClassType<TEntity>,
+		size: number
+	): Builder<TEntity> {
 		return new Builder<TEntity>(
 			entityType,
 			[...Array(size)].map(() => ({} as any))
@@ -22,7 +28,9 @@ export class Builder<TEntity extends Base<any>> {
 	}
 
 	public with(
-		object: DeepPartial<TEntity> | ((i: number, list: TEntity[]) => DeepPartial<TEntity>)
+		object:
+			| DeepPartial<TEntity>
+			| ((i: number, list: TEntity[]) => DeepPartial<TEntity>)
 	): Builder<TEntity> {
 		this.list.slice(this.rangeStart, this.rangeEnd).forEach((item, i) => {
 			let currentObject = object;
@@ -31,6 +39,7 @@ export class Builder<TEntity extends Base<any>> {
 			}
 
 			Object.keys(currentObject).forEach((key) => {
+				// @ts-ignore
 				item[key] = currentObject[key];
 			});
 		});
@@ -61,7 +70,9 @@ export class Builder<TEntity extends Base<any>> {
 	}
 
 	public build(em: EntityManager): TEntity[] {
-		const entities = this.list.map((item) => em.create(this.entityType, item));
+		const entities = this.list.map((item) =>
+			em.create(this.entityType, item)
+		);
 		em.persist(Object.values(entities));
 		return entities;
 	}

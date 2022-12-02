@@ -1,8 +1,9 @@
+import "reflect-metadata";
 import { App } from "./app";
 
 (async () => {
 	const app = new App();
-	await app.createDBConnection();
+	// await app.createDBConnection();
 	app.listen();
 })();
 

@@ -4,10 +4,12 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 // created for each request
 export const createContext = ({
 	req,
+	res,
 }: trpcExpress.CreateExpressContextOptions) => {
 	const accessToken = req.headers["x-auth"];
 
 	return {
+		res,
 		accessToken,
 		em: req.em,
 	};
@@ -21,8 +23,3 @@ export const t = initTRPC.context<Context>().create();
 export const middleware = t.middleware;
 export const router = t.router;
 export const mergeRouters = t.mergeRouters;
-
-import { isAuthenticated } from "./middlewares";
-
-export const publicProcedure = t.procedure;
-const protectedProcedure = t.procedure.use(isAuthenticated);

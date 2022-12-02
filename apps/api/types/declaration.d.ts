@@ -1,11 +1,3 @@
-import { EntityManager } from "@mikro-orm/core";
-
-declare module "express" {
-	interface Request {
-		em: EntityManager;
-	}
-}
-
 declare module "hash-files" {
 	export default function hashFiles(
 		options: {
