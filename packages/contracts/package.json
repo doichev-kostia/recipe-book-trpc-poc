@@ -10,9 +10,9 @@
 		"clean:modules": "pnpm rimraf node_modules",
 		"watch": "concurrently --kill-others \"rollup --config rollup.loader.cjs -w \" \"tsc -w\""
 	},
-	"types": "build/index.d.ts",
-	"module": "build/index.esm.js",
-	"main": "build/index.js",
+	"types": "./build/index.d.ts",
+	"module": "./build/index.mjs",
+	"main": "./build/index.js",
 	"exports": {
 		".": {
 			"types": "./build/index.d.ts",
@@ -35,7 +35,7 @@
 		"@rollup/plugin-babel": "^6.0.2",
 		"@rollup/plugin-commonjs": "^23.0.2",
 		"@rollup/plugin-node-resolve": "^15.0.1",
-		"@types/node": "^16",
+		"@types/node": "18.11.11",
 		"concurrently": "^7.5.0",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.79.1",
