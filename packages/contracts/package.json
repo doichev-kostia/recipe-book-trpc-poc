@@ -4,11 +4,11 @@
 	"description": "",
 	"private": true,
 	"scripts": {
-		"build": "rollup --config rollup.config.cjs && tsc",
+		"build": "rollup --config rollup.loader.cjs && tsc",
 		"build:clean": "pnpm i && pnpm clean:build && pnpm build",
 		"clean:build": "pnpm rimraf build",
 		"clean:modules": "pnpm rimraf node_modules",
-		"watch": "concurrently --kill-others \"rollup --config rollup.config.cjs -w \" \"tsc -w\""
+		"watch": "concurrently --kill-others \"rollup --config rollup.loader.cjs -w \" \"tsc -w\""
 	},
 	"types": "build/index.d.ts",
 	"module": "build/index.esm.js",
@@ -35,7 +35,7 @@
 		"@rollup/plugin-babel": "^6.0.2",
 		"@rollup/plugin-commonjs": "^23.0.2",
 		"@rollup/plugin-node-resolve": "^15.0.1",
-		"@types/node": "16.11.7",
+		"@types/node": "^16",
 		"concurrently": "^7.5.0",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.79.1",
