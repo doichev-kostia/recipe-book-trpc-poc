@@ -2,11 +2,11 @@ import express, { Express, NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { createContext } from "./trcp";
-import { appRouter } from "./router";
+import { createContext } from "./trcp.js";
+import { appRouter } from "./router.js";
 import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
-import ormConfig from "./orm.config";
+import ormConfig from "./orm.config.js";
 
 // TODO: REPLACE WITH REAL SENTRY
 const Sentry = {

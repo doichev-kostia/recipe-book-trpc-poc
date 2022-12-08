@@ -2,6 +2,7 @@ import path from "path";
 
 const root = path.join(__dirname, ".");
 const src = path.join(root, "src");
+const build = path.join(root, "build");
 const entities = path.join(src, "entities");
 const seeders = path.join(src, "seeders");
 const tests = path.join(src, "tests");
@@ -19,6 +20,7 @@ const app = path.join(src, "app.ts");
 export const paths = {
 	root,
 	src,
+	build,
 	entities,
 	seeders,
 	tests,

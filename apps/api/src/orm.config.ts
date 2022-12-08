@@ -3,8 +3,8 @@ import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 import path from "path";
 import { config } from "dotenv";
 
-import { noEntityFoundError } from "./utils/extensions";
-import { paths } from "./paths";
+import { noEntityFoundError } from "./utils/extensions.js";
+import { paths } from "./paths.js";
 
 const env = process.env.NODE_ENV || "development";
 const isTest = env === "test";

@@ -11,14 +11,15 @@
 			"express"
 		],
 		"composite": true,
-		"target": "ESNext",
-		"module": "commonjs",
+		"target": "es2020",
+		"module": "es2020",
 		"resolveJsonModule": true,
-		"moduleResolution": "Node",
+		"moduleResolution": "node",
 		"declaration": true,
+		"declarationMap": true,
+		"declarationDir": "./build",
 		"strictPropertyInitialization": false,
 		"allowSyntheticDefaultImports": true,
-		"outDir": "./build",
 		"allowJs": true,
 		"checkJs": true,
 		"strict": true,
@@ -26,6 +27,7 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
+//		"emitDeclarationOnly": true,
 		"incremental": true,
 		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
 		"lib": [
@@ -36,13 +38,9 @@
 		],
 		"baseUrl": "./src",
 		"rootDir": "./src",
+		"outDir": "./build",
 		"paths": {
-			"*": [
-				"./*"
-			],
-			"@trpc-poc/contracts": [
-				"../../packages/contracts/src"
-			]
+			"*": ["./*"]
 		},
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true
@@ -54,10 +52,5 @@
 	"exclude": [
 		"node_modules",
 		"build",
-	],
-	"references": [
-		{
-			"path": "../../packages/contracts/tsconfig.json"
-		}
 	]
 }

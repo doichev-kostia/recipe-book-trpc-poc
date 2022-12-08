@@ -1,10 +1,10 @@
 import { EntityManager } from "@mikro-orm/core";
-import { EntitySeeder } from "utils/seeder/entity.seeder";
-import { User } from "entities/user.entity";
-import { Builder } from "utils";
-import { createSimpleUUID } from "utils/helpers";
+import { EntitySeeder } from "utils/seeder/entity.seeder.js";
+import { User } from "entities/user.entity.js";
+import { Builder } from "utils/builder.js";
+import { createSimpleUUID } from "utils/helpers/create-simple-uuid.js";
 import { faker } from "@faker-js/faker";
-import { createTestEmail, createTestPassword } from "tests/utils/constants";
+import { createTestEmail, createTestPassword } from "tests/utils/constants.js";
 
 export class UserSeeder extends EntitySeeder<User> {
 	public seed = async (em: EntityManager) => {

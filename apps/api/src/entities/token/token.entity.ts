@@ -1,6 +1,6 @@
 import * as crypto from "crypto";
 import { Entity, Enum, Property } from "@mikro-orm/core";
-import { Base } from "utils/entities/base.entity";
+import { Base } from "utils/entities/base.entity.js";
 import { TokenType } from "@trpc-poc/contracts";
 
 @Entity({ discriminatorColumn: "type", abstract: true })

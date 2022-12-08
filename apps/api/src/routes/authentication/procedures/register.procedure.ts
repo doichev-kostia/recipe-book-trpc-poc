@@ -2,12 +2,12 @@ import { TRPCError } from "@trpc/server";
 import { RegisterBody, RoleType } from "@trpc-poc/contracts";
 import { z } from "zod";
 
-import { getEm } from "utils/request-context-manager";
-import { hashPassword } from "utils/hash-password";
-import { createAccessTokens } from "utils/helpers/tokens/create-access-tokens";
+import { getEm } from "utils/request-context-manager.js";
+import { hashPassword } from "utils/hash-password.js";
+import { createAccessTokens } from "utils/helpers/tokens/create-access-tokens.js";
 
-import { User } from "entities/user.entity";
-import { Role } from "entities/role.entity";
+import { User } from "entities/user.entity.js";
+import { Role } from "entities/role.entity.js";
 
 type TRegisterBody = z.infer<typeof RegisterBody>;
 

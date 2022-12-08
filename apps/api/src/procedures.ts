@@ -1,5 +1,5 @@
-import { t } from "./trcp";
-import { isAuthenticated } from "./middlewares";
+import { t } from "./trcp.js";
+import { isAuthenticated } from "./middlewares.js";
 
 export const publicProcedure = t.procedure;
 const protectedProcedure = t.procedure.use(isAuthenticated);

@@ -1,9 +1,9 @@
 import { MikroORM } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
-import { getEm, RequestContextManager } from "utils/request-context-manager";
-import ormConfig from "../../orm.config";
-import { TestBase } from "tests/utils/test-base";
-import { setFixtureDate } from "utils/helpers/date";
+import { getEm, RequestContextManager } from "utils/request-context-manager.js";
+import ormConfig from "../../orm.config.js";
+import { TestBase } from "tests/utils/test-base.js";
+import { setFixtureDate } from "utils/helpers/date.js";
 
 export class HandlerTestBase extends TestBase {
 	public orm: MikroORM<PostgreSqlDriver>;

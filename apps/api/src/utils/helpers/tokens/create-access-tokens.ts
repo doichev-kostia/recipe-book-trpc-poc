@@ -1,9 +1,9 @@
 import { AccessTokenData, RoleType, TokenType } from "@trpc-poc/contracts";
 
-import { getEm } from "utils/request-context-manager";
-import { createSimpleAccessToken } from "./create-simple-access-token";
-import { User } from "entities/user.entity";
-import { RefreshToken } from "entities/token/refresh-token.entity";
+import { getEm } from "utils/request-context-manager.js";
+import { createSimpleAccessToken } from "./create-simple-access-token.js";
+import { User } from "entities/user.entity.js";
+import { RefreshToken } from "entities/token/refresh-token.entity.js";
 import { TRPCError } from "@trpc/server";
 
 export const createAccessTokens = async (user: User, roleType: RoleType) => {
@@ -35,6 +35,7 @@ export const createAccessTokens = async (user: User, roleType: RoleType) => {
 		accessTokenData
 	);
 
+	// @ts-ignore
 	const refreshToken = em.create(RefreshToken, {
 		expiresAt: new Date(
 			Date.now() + Number(process.env.REFRESH_TOKEN_LIFETIME)

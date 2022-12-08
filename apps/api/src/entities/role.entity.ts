@@ -5,11 +5,11 @@ import {
 	ManyToOne,
 	OneToMany,
 } from "@mikro-orm/core";
-import { Base } from "utils/entities/base.entity";
+import { Base } from "utils/entities/base.entity.js";
 import { RoleType } from "@trpc-poc/contracts";
 
-import { User } from "./user.entity";
-import { Recipe } from "./recipe.entity";
+import { User } from "./user.entity.js";
+import { Recipe } from "./recipe.entity.js";
 
 @Entity()
 export class Role extends Base<Role> {
