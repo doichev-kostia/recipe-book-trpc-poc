@@ -1,4 +1,13 @@
 {
+	"include": [
+		"./src/**/*",
+		"./types/**/*",
+		"./rollup.config.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"build",
+	],
 	"compilerOptions": {
 		"typeRoots": [
 			"node_modules/@types",
@@ -27,7 +36,7 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"emitDeclarationOnly": true,
+//		"emitDeclarationOnly": true,
 		"incremental": true,
 		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
 		"lib": [
@@ -45,12 +54,4 @@
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true
 	},
-	"include": [
-		"./src/**/*",
-		"./types/**/*"
-	],
-	"exclude": [
-		"node_modules",
-		"build",
-	]
 }

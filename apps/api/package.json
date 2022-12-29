@@ -7,11 +7,11 @@
 	"scripts": {
 		"start": "node -r source-map-support/register build/server.js",
 		"dev": "cross-env NODE_ENV=development nodemon -r source-map-support/register ./build/server.js",
-		"build": "rollup -c rollup.config.js",
+		"build": "rollup --config rollup.config.ts --configPlugin rollup-plugin-esbuild",
 		"build:clean": "pnpm i && pnpm clean:build && pnpm build",
 		"clean:build": "pnpm rimraf build",
 		"clean:modules": "pnpm rimraf node_modules",
-		"watch": "concurrently --kill-others \"tsc -w\" \" pnpm run transrform-imports -w \"",
+		"watch": "rollup --config rollup.config.ts --configPlugin rollup-plugin-esbuild --watch",
 		"test": "cross-env NODE_PATH=./build vitest --config ./vitest.config.ts --dir ./build",
 		"coverage": "pnpm test run --coverage",
 		"test:ui": "pnpm run test --ui",

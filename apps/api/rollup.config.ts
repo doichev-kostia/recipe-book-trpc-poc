@@ -1,3 +1,4 @@
+import { RollupOptions } from "rollup";
 import aliasPlugin from "@rollup/plugin-alias";
 import esbuildPlugin from "rollup-plugin-esbuild";
 import * as path from "path";
@@ -11,9 +12,9 @@ const src = path.resolve(__dirname, "src");
 const build = path.resolve(__dirname, "build");
 
 const tsExtension = /\.(?:ts|mts|cts|tsx)$/;
-export const isTsFile = (url) => tsExtension.test(url);
+export const isTsFile = (url: string): boolean => tsExtension.test(url);
 
-export function isFileReadable(filename) {
+export function isFileReadable(filename: string): boolean {
 	try {
 		fs.accessSync(filename, fs.constants.R_OK);
 		return true;
@@ -22,7 +23,7 @@ export function isFileReadable(filename) {
 	}
 }
 
-function resolveId(importee) {
+function resolveId(importee: string) {
 	let res = path.resolve(importee);
 
 	if (isFileReadable(path.resolve(res, "index.ts"))) {
@@ -36,11 +37,7 @@ function resolveId(importee) {
 	return res;
 }
 
-/**
- *
- * @type {import("rollup").RollupOptions}
- */
-const config = {
+const config: RollupOptions = {
 	input: path.resolve(src, "server.ts"),
 	output: {
 		format: "esm",
@@ -48,7 +45,6 @@ const config = {
 	},
 	plugins: [
 		aliasPlugin({
-			resolve: [".ts", ".js"],
 			entries: [
 				{
 					find: "entities",
