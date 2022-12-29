@@ -1,6 +1,6 @@
-import { router } from "./trcp.js";
-import { authenticationRouter } from "./routes/authentication/authentication.route.js";
-import { usersRouter } from "./routes/user.js";
+import { router } from "./trcp";
+import { authenticationRouter } from "./routes/authentication/authentication.route";
+import { usersRouter } from "./routes/user";
 
 export const appRouter = router({
 	authentication: authenticationRouter,

@@ -1,7 +1,7 @@
-import ormConfig from "orm.config.js";
+import ormConfig from "orm.config";
 import { MikroORM } from "@mikro-orm/core";
-import { RequestContextManager } from "utils/request-context-manager.js";
-import { dropAndLoad } from "utils/seeder/pumpAndDump/dropAndLoad.js";
+import { RequestContextManager } from "utils/request-context-manager";
+import { dropAndLoad } from "utils/seeder/pumpAndDump/dropAndLoad";
 
 const loadFixtures = async () => {
 	const orm = await MikroORM.init(ormConfig);

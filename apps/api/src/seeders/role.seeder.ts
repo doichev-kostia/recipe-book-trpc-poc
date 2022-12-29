@@ -1,12 +1,12 @@
 import { EntityManager } from "@mikro-orm/core";
-import { EntitySeeder } from "utils/seeder/entity.seeder.js";
-import { SeederEntityMap } from "utils/seeder/seeder.js";
-import { Role } from "entities/role.entity.js";
-import { User } from "entities/user.entity.js";
-import { Builder } from "utils/builder.js";
-import { createSimpleUUID } from "utils/helpers/create-simple-uuid.js";
+import { EntitySeeder } from "utils/seeder/entity.seeder";
+import { SeederEntityMap } from "utils/seeder/seeder";
+import { Role } from "entities/role.entity";
+import { User } from "entities/user.entity";
+import { Builder } from "utils/builder";
+import { createSimpleUUID } from "utils/helpers/create-simple-uuid";
 import { RoleType } from "@trpc-poc/contracts";
-import { UserSeeder } from "./user.seeder.js";
+import { UserSeeder } from "./user.seeder";
 
 export class RoleSeeder extends EntitySeeder<Role> {
 	public dependencies = [UserSeeder];

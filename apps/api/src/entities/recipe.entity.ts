@@ -5,9 +5,9 @@ import {
 	Property,
 	TimeType,
 } from "@mikro-orm/core";
-import { Base } from "utils/entities/base.entity.js";
-import { Role } from "./role.entity.js";
-import { Ingredient } from "./ingredient.entity.js";
+import { Base } from "utils/entities/base.entity";
+import { Role } from "./role.entity";
+import { Ingredient } from "./ingredient.entity";
 
 @Entity()
 export class Recipe extends Base<Recipe> {

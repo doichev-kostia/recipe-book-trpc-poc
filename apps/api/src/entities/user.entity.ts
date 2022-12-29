@@ -1,9 +1,9 @@
-import { Base } from "utils/entities/base.entity.js";
-import { hashPassword } from "utils/hash-password.js";
+import { Base } from "utils/entities/base.entity";
+import { hashPassword } from "utils/hash-password";
 import { Collection, Entity, OneToMany, Property } from "@mikro-orm/core";
 
-import { Role } from "./role.entity.js";
-import { RefreshToken } from "./token/refresh-token.entity.js";
+import { Role } from "./role.entity";
+import { RefreshToken } from "./token/refresh-token.entity";
 
 @Entity()
 export class User extends Base<User> {

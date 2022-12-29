@@ -1,7 +1,7 @@
 import { expect } from "@jest/globals";
-import { HandlerTestBase } from "../utils/handler-test-base.js";
+import { HandlerTestBase } from "../utils/handler-test-base";
 import { EntityManager } from "@mikro-orm/core";
-import { register } from "routes/authentication/procedures/register.procedure.js";
+import { register } from "routes/authentication/procedures/register.procedure";
 import { RoleType } from "@trpc-poc/contracts";
 
 describe("Handler test", () => {

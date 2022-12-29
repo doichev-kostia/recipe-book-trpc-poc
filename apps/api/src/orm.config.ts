@@ -3,8 +3,8 @@ import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 import path from "path";
 import { config } from "dotenv";
 
-import { noEntityFoundError } from "./utils/extensions.js";
-import { paths } from "./paths.js";
+import { noEntityFoundError } from "./utils/extensions";
+import { paths } from "./paths";
 
 const env = process.env.NODE_ENV || "development";
 const isTest = env === "test";
@@ -20,7 +20,7 @@ export default {
 	allowGlobalContext: true,
 	flushMode: FlushMode.COMMIT,
 	migrations: {
-		path: path.join(__dirname, "migrations"),
+		path: path.join(import.meta.url, "migrations"),
 		tableName: "migrations",
 		transactional: true,
 		pattern: /^[\w-]+\d+\.(ts|js)$/,
@@ -32,7 +32,7 @@ export default {
 	findOneOrFailHandler: noEntityFoundError,
 	type: "postgresql",
 	tsNode: false,
-	entities: [path.join(process.cwd(), "**", "*.entity.js")],
+	entities: [path.join(process.cwd(), "**", "*.entity")],
 	entitiesTs: [path.join(process.cwd(), "**", "*.entity.ts")],
 	user: POSTGRES_USER,
 	password: POSTGRES_PASSWORD,

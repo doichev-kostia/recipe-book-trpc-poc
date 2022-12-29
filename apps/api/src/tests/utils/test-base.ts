@@ -1,4 +1,4 @@
-import { TestDbDataService } from "utils/seeder/pumpAndDump/testDbDataService.js";
+import { TestDbDataService } from "utils/seeder/pumpAndDump/testDbDataService";
 import { MikroORM } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";
 

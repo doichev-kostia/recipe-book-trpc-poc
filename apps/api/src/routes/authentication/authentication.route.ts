@@ -1,7 +1,7 @@
-import { router } from "trcp.js";
-import { publicProcedure } from "procedures.js";
+import { router } from "trcp";
+import { publicProcedure } from "procedures";
 import { RegisterBody, RoleView } from "@trpc-poc/contracts";
-import { register } from "./procedures/register.procedure.js";
+import { register } from "./procedures/register.procedure";
 import { Response } from "express";
 
 const setAuthenticationTokens = (

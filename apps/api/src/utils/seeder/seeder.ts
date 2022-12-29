@@ -28,7 +28,7 @@ export class DatabaseSeeder {
 				this.entities[type.name.toLowerCase()] as T[],
 		} as SeederEntityMap;
 		const seeders = importClasses<EntitySeeder<Base<any>>>([
-			`${paths.root}/**/seeders/**/*.seeder.js`,
+			`${paths.root}/**/seeders/**/*.seeder`,
 		]);
 		this.seeders = seeders.map((seeder) => new seeder(orm));
 		this.orm = orm;

@@ -1,6 +1,6 @@
 import path from "path";
 
-const root = path.join(__dirname, ".");
+const root = path.join(import.meta.url, ".");
 const src = path.join(root, "src");
 const build = path.join(root, "build");
 const entities = path.join(src, "entities");
@@ -34,5 +34,5 @@ export const paths = {
 	server,
 	trpc,
 	app,
-	paths: __filename,
+	paths: import.meta.url,
 } as const;

@@ -1,4 +1,4 @@
-import { middleware } from "./trcp.js";
+import { middleware } from "./trcp";
 import { TRPCError } from "@trpc/server";
 
 export const isAuthenticated = middleware(({ next, ctx }) => {
