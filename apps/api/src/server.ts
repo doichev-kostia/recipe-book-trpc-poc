@@ -1,6 +1,6 @@
 import "reflect-metadata";
 // import { PrismaClient } from "@prisma/client";
-import { App } from "app";
+import { App } from "./app";
 //
 // const prisma = new PrismaClient();
 //

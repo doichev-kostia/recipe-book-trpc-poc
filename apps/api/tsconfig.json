@@ -27,7 +27,7 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-//		"emitDeclarationOnly": true,
+		"emitDeclarationOnly": true,
 		"incremental": true,
 		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
 		"lib": [

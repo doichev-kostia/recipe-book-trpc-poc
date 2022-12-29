@@ -2,7 +2,7 @@ import express, { Express, NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { createContext } from "./trcp";
+import { createContext } from "./trpc";
 import { appRouter } from "./router";
 import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { PostgreSqlDriver } from "@mikro-orm/postgresql";

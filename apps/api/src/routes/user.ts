@@ -1,4 +1,4 @@
-import { router } from "trcp";
+import { router } from "../trpc";
 import { publicProcedure } from "procedures";
 
 export const usersRouter = router({

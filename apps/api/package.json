@@ -5,11 +5,9 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"start": "cross-env NODE_PATH=./build node -r source-map-support/register build/server.js",
-		"dev": "cross-env NODE_ENV=development NODE_PATH=./build nodemon -r source-map-support/register ./build/server.js",
-		"transrform-imports": "babel build --out-dir build --ignore \"build/**/*.map\"",
-		"build": "tsc && pnpm run transrform-imports",
-		"roll": "rollup -c rollup.config.js",
+		"start": "node -r source-map-support/register build/server.js",
+		"dev": "cross-env NODE_ENV=development nodemon -r source-map-support/register ./build/server.js",
+		"build": "rollup -c rollup.config.js",
 		"build:clean": "pnpm i && pnpm clean:build && pnpm build",
 		"clean:build": "pnpm rimraf build",
 		"clean:modules": "pnpm rimraf node_modules",
@@ -22,14 +20,12 @@
 		"load-fixtures:test": "cross-env NODE_ENV=test NODE_PATH=./build node build/scripts/load-fixtures.js",
 		"load-fixtures:app": "cross-env NODE_ENV=development NODE_PATH=./build node build/scripts/load-fixtures.js"
 	},
-	"main": "build/server.js",
 	"types": "build/server.d.ts",
 	"module": "build/server.js",
 	"exports": {
 		".": {
 			"types": "./build/server.d.ts",
-			"import": "./build/server.js",
-			"require": "./build/server.js"
+			"import": "./build/server.js"
 		},
 		"./package.json": "./package.json"
 	},
@@ -37,8 +33,6 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@babel/cli": "^7.19.3",
-		"@babel/core": "^7.0.0",
 		"@faker-js/faker": "^7.6.0",
 		"@jest/globals": "^29.3.1",
 		"@jest/types": "^29.3.1",
@@ -51,7 +45,6 @@
 		"@types/jest": "^29.2.2",
 		"@types/supertest": "^2.0.12",
 		"@types/uuid": "^8.3.4",
-		"babel-plugin-module-resolver": "^4.1.0",
 		"bcryptjs": "^2.4.3",
 		"dotenv": "^16.0.3",
 		"esbuild": "^0.16.12",

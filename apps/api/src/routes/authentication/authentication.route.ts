@@ -1,4 +1,4 @@
-import { router } from "trcp";
+import { router } from "../../trpc";
 import { publicProcedure } from "procedures";
 import { RegisterBody, RoleView } from "@trpc-poc/contracts";
 import { register } from "./procedures/register.procedure";
