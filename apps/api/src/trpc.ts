@@ -1,5 +1,6 @@
 import { inferAsyncReturnType, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
+import { prisma } from "@trpc-poc/database";
 
 // created for each request
 export const createContext = ({
@@ -11,7 +12,7 @@ export const createContext = ({
 	return {
 		res,
 		accessToken,
-		em: req.em,
+		prisma,
 	};
 };
 export type Context = inferAsyncReturnType<typeof createContext>;

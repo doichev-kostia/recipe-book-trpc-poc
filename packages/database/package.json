@@ -1,0 +1,18 @@
+{
+	"name": "@trpc-poc/database",
+	"version": "0.1.0",
+	"main": "./index.ts",
+	"types": "./index.ts",
+	"scripts": {
+		"clean": "rm -rf .turbo node_modules",
+		"db:generate": "prisma generate",
+		"db:push": "prisma db push --skip-generate",
+		"postinstall": "prisma generate"
+	},
+	"dependencies": {
+		"@prisma/client": "^4.8.0"
+	},
+	"devDependencies": {
+		"prisma": "^4.8.0"
+	}
+}

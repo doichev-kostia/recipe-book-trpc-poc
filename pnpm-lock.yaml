@@ -24,10 +24,10 @@ importers:
       '@mikro-orm/migrations': ^5.5.1
       '@mikro-orm/postgresql': ^5.5.1
       '@panenco/papi': ^1.1.1
-      '@prisma/client': ^4.7.1
       '@rollup/plugin-alias': ^4.0.2
       '@rollup/plugin-typescript': ^10.0.1
       '@trpc-poc/contracts': workspace:*
+      '@trpc-poc/database': workspace:*
       '@trpc/server': 10.0.0-proxy-beta.26
       '@types/bcryptjs': ^2.4.2
       '@types/cors': ^2.8.12
@@ -72,8 +72,8 @@ importers:
       '@mikro-orm/migrations': 5.5.3_@mikro-orm+core@5.5.3
       '@mikro-orm/postgresql': 5.5.3_2raacla5frr7z24irl7bw5xc44
       '@panenco/papi': 1.1.1_usuxrwvda6q7j7sqgexwrl42mu
-      '@prisma/client': 4.7.1
       '@trpc-poc/contracts': link:../../packages/contracts
+      '@trpc-poc/database': link:../../packages/database
       '@trpc/server': 10.0.0-proxy-beta.26
       '@types/node': 18.11.11
       class-transformer: 0.5.1
@@ -186,6 +186,15 @@ importers:
       rollup-plugin-terser: 7.0.2_rollup@2.79.1
       ts-node: 10.9.1_5wyqbr5ddly62zcv3ehcsfny4y
       typescript: 4.8.4
+
+  packages/database:
+    specifiers:
+      '@prisma/client': ^4.8.0
+      prisma: ^4.8.0
+    dependencies:
+      '@prisma/client': 4.8.0_prisma@4.8.0
+    devDependencies:
+      prisma: 4.8.0
 
 packages:
 
@@ -2261,8 +2270,8 @@ packages:
       - supports-color
     dev: false
 
-  /@prisma/client/4.7.1:
-    resolution: {integrity: sha512-/GbnOwIPtjiveZNUzGXOdp7RxTEkHL4DZP3vBaFNadfr6Sf0RshU5EULFzVaSi9i9PIK9PYd+1Rn7z2B2npb9w==}
+  /@prisma/client/4.8.0_prisma@4.8.0:
+    resolution: {integrity: sha512-Y1riB0p2W52kh3zgssP/YAhln3RjBFcJy3uwEiyjmU+TQYh6QTZDRFBo3JtBWuq2FyMOl1Rye8jxzUP+n0l5Cg==}
     engines: {node: '>=14.17'}
     requiresBuild: true
     peerDependencies:
@@ -2271,12 +2280,17 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 4.7.1-1.272861e07ab64f234d3ffc4094e32bd61775599c
+      '@prisma/engines-version': 4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe
+      prisma: 4.8.0
     dev: false
 
-  /@prisma/engines-version/4.7.1-1.272861e07ab64f234d3ffc4094e32bd61775599c:
-    resolution: {integrity: sha512-Bd4LZ+WAnUHOq31e9X/ihi5zPlr4SzTRwUZZYxvWOxlerIZ7HJlVa9zXpuKTKLpI9O1l8Ec4OYCKsivWCs5a3Q==}
+  /@prisma/engines-version/4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe:
+    resolution: {integrity: sha512-MHSOSexomRMom8QN4t7bu87wPPD+pa+hW9+71JnVcF3DqyyO/ycCLhRL1we3EojRpZxKvuyGho2REQsMCvxcJw==}
     dev: false
+
+  /@prisma/engines/4.8.0:
+    resolution: {integrity: sha512-A1Asn2rxZMlLAj1HTyfaCv0VQrLUv034jVay05QlqZg1qiHPeA3/pGTfNMijbsMYCsGVxfWEJuaZZuNxXGMCrA==}
+    requiresBuild: true
 
   /@rollup/plugin-alias/4.0.2_rollup@2.79.1:
     resolution: {integrity: sha512-1hv7dBOZZwo3SEupxn4UA2N0EDThqSSS+wI1St1TNTBtOZvUchyIClyHcnDcjjrReTPZ47Faedrhblv4n+T5UQ==}
@@ -5656,6 +5670,14 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
     dev: true
+
+  /prisma/4.8.0:
+    resolution: {integrity: sha512-DWIhxvxt8f4h6MDd35mz7BJff+fu7HItW3WPDIEpCR3RzcOWyiHBbLQW5/DOgmf+pRLTjwXQob7kuTZVYUAw5w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.8.0
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
