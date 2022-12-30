@@ -65,7 +65,7 @@ model Ingredient {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     name      String
-    quantity   String
+    quantity  String
     unit      String
 
     recipeId String

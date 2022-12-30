@@ -1,2 +1,1 @@
-export * from "./role-type";
-export * from "./token-type";
+export { RoleType, TokenType } from "@trpc-poc/database";

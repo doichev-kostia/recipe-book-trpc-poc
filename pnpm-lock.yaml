@@ -162,6 +162,7 @@ importers:
       '@rollup/plugin-babel': ^6.0.2
       '@rollup/plugin-commonjs': ^23.0.2
       '@rollup/plugin-node-resolve': ^15.0.1
+      '@trpc-poc/database': workspace:*
       '@types/node': 18.11.11
       concurrently: ^7.5.0
       rimraf: ^3.0.2
@@ -171,6 +172,7 @@ importers:
       typescript: ^4.6.4
       zod: ^3.19.1
     dependencies:
+      '@trpc-poc/database': link:../database
       zod: 3.19.1
     devDependencies:
       '@babel/core': 7.20.2

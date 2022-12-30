@@ -26,7 +26,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"zod": "^3.19.1"
+		"zod": "^3.19.1",
+		"@trpc-poc/database": "workspace:*"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.0.0",

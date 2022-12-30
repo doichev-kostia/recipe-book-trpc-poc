@@ -1,5 +1,4 @@
-import { RoleType } from "../enums/role-type";
-import { TokenType } from "../enums/token-type";
+import { RoleType, TokenType } from "../enums";
 
 export interface BaseTokenData {
 	userId: string;

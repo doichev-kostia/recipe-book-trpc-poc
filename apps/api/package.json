@@ -20,12 +20,13 @@
 		"load-fixtures:test": "cross-env NODE_ENV=test NODE_PATH=./build node build/scripts/load-fixtures.js",
 		"load-fixtures:app": "cross-env NODE_ENV=development NODE_PATH=./build node build/scripts/load-fixtures.js"
 	},
-	"types": "build/server.d.ts",
-	"module": "build/server.js",
+	"types": "./src/router.ts",
+	"module": "./src/router.ts",
+	"main": "./src/router.ts",
 	"exports": {
 		".": {
-			"types": "./build/server.d.ts",
-			"import": "./build/server.js"
+			"types": "./src/router.ts",
+			"import": "./src/router.ts"
 		},
 		"./package.json": "./package.json"
 	},
