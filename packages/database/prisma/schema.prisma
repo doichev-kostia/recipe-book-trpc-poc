@@ -9,3 +9,78 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+
+enum RoleType {
+    admin
+    user
+}
+
+enum TokenType {
+    refresh
+    access
+    invite
+}
+
+model User {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    firstName String?
+    lastName  String?
+    email     String   @unique
+    password  String
+
+    roles Role[]
+    Token Token[]
+}
+
+model Role {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    type      RoleType @default(user)
+
+    userId  String
+    user    User     @relation(fields: [userId], references: [id])
+    recipes Recipe[]
+}
+
+model Recipe {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    content   String
+    cookTime  DateTime @db.Time()
+    prepTime  DateTime @db.Time()
+
+    ingredients Ingredient[]
+
+    roleId String
+    role   Role   @relation(fields: [roleId], references: [id])
+}
+
+model Ingredient {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    quantity   String
+    unit      String
+
+    recipeId String
+    recipe   Recipe @relation(fields: [recipeId], references: [id])
+}
+
+model Token {
+    id        String    @id @default(uuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    value     String    @unique
+    expiresAt DateTime?
+
+    type TokenType
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+}
