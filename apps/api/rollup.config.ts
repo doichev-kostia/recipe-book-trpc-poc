@@ -42,6 +42,9 @@ const config: RollupOptions = {
 	output: {
 		format: "esm",
 		dir: build,
+		sourcemap: true,
+		preserveModules: true,
+		preserveModulesRoot: "src",
 	},
 	plugins: [
 		aliasPlugin({
