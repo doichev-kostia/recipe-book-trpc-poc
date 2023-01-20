@@ -1,1 +1,3 @@
-export { RoleType, TokenType } from "@trpc-poc/database";
+import { RoleType, TokenType } from "@trpc-poc/database";
+
+export { RoleType, TokenType };

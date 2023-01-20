@@ -1,12 +1,9 @@
-import express, { Express, NextFunction } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { createContext } from "./trpc";
 import { appRouter } from "./router";
-import { MikroORM, RequestContext } from "@mikro-orm/core";
-import { PostgreSqlDriver } from "@mikro-orm/postgresql";
-import ormConfig from "./orm.config";
 
 // TODO: REPLACE WITH REAL SENTRY
 const Sentry = {
@@ -16,7 +13,6 @@ const Sentry = {
 };
 
 export class App {
-	public orm!: MikroORM<PostgreSqlDriver>;
 	public readonly host: Express;
 	public readonly port: number;
 
@@ -37,29 +33,12 @@ export class App {
 		});
 	}
 
-	public async createDBConnection() {
-		try {
-			this.orm = await MikroORM.init(ormConfig);
-			console.log("Database connection established");
-		} catch (error) {
-			console.error(
-				"An error has occurred while connecting to the DB",
-				error
-			);
-		}
-	}
-
 	private initializeMiddlewares(): void {
 		this.host.use(
 			cors({
 				origin: true,
 			})
 		);
-
-		this.host.use((req, __, next: NextFunction) => {
-			(req as any).em = this.orm.em.fork();
-			RequestContext.create(this.orm.em, next);
-		});
 
 		this.host.use(
 			"/trpc",

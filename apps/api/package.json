@@ -14,11 +14,7 @@
 		"watch": "rollup --config rollup.config.ts --configPlugin rollup-plugin-esbuild --watch",
 		"test": "cross-env NODE_PATH=./build vitest --config ./vitest.config.ts --dir ./build",
 		"coverage": "pnpm test run --coverage",
-		"test:ui": "pnpm run test --ui",
-		"migration:revert": "pnpm mikro-orm migration:down",
-		"migration:migrate": "pnpm mikro-orm migration:create && pnpm mikro-orm migration:up",
-		"load-fixtures:test": "cross-env NODE_ENV=test NODE_PATH=./build node build/scripts/load-fixtures.js",
-		"load-fixtures:app": "cross-env NODE_ENV=development NODE_PATH=./build node build/scripts/load-fixtures.js"
+		"test:ui": "pnpm run test --ui"
 	},
 	"types": "./src/router.ts",
 	"module": "./src/router.ts",
@@ -65,10 +61,6 @@
 		"vite": "^3.2.0"
 	},
 	"dependencies": {
-		"@mikro-orm/cli": "^5.5.1",
-		"@mikro-orm/core": "^5.5.1",
-		"@mikro-orm/migrations": "^5.5.1",
-		"@mikro-orm/postgresql": "^5.5.1",
 		"@panenco/papi": "^1.1.1",
 		"@trpc-poc/contracts": "workspace:*",
 		"@trpc-poc/database": "workspace:*",
@@ -86,12 +78,6 @@
 		"source-map-support": "^0.5.21",
 		"uuid": "^9.0.0",
 		"zod": "^3.19.1"
-	},
-	"mikro-orm": {
-		"useTsNode": true,
-		"configPaths": [
-			"./src/orm.config.ts"
-		]
 	},
 	"pnpm": {
 		"overrides": {

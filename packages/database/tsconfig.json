@@ -1,20 +1,40 @@
 {
-	"include": ["./index.ts"],
+	"include": [
+      "./src/*"
+    ],
 	"compilerOptions": {
 		"target": "es2017",
+		"module": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"outDir": "./build",
+		"tsBuildInfoFile": "./build/.tsbuildinfo",
+		"composite": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": false,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"allowJs": true,
+		"sourceMap": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
 		"esModuleInterop": true,
-		"module": "esnext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"incremental": true,
-		"noUncheckedIndexedAccess": true
-	}
+		"noUncheckedIndexedAccess": true,
+		"baseUrl": "./src",
+		"rootDir": "./src"
+	},
+	"exclude": ["node_modules", "build"],
+	"references": [
+		{
+			"path": "./tsconfig.scripts.json"
+		}
+	]
 }

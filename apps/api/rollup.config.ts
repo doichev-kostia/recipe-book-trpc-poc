@@ -1,7 +1,7 @@
 import { RollupOptions } from "rollup";
 import aliasPlugin from "@rollup/plugin-alias";
 import esbuildPlugin from "rollup-plugin-esbuild";
-import * as path from "path";
+import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 

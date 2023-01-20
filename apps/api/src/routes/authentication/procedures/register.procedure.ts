@@ -1,21 +1,20 @@
 import { TRPCError } from "@trpc/server";
 import { RegisterBody, RoleType } from "@trpc-poc/contracts";
 import { z } from "zod";
-
-import { getEm } from "utils/request-context-manager";
 import { hashPassword } from "utils/hash-password";
 import { createAccessTokens } from "utils/helpers/tokens/create-access-tokens";
-
-import { User } from "entities/user.entity";
-import { Role } from "entities/role.entity";
+import { Context } from "trpc";
 
 type TRegisterBody = z.infer<typeof RegisterBody>;
 
-export const register = async (body: TRegisterBody) => {
-	const em = getEm();
-
-	const existingUser = await em.findOne(User, {
-		email: body.email,
+export const register = async (body: TRegisterBody, { prisma }: Context) => {
+	const existingUser = await prisma.user.findFirst({
+		where: {
+			email: body.email,
+		},
+		select: {
+			id: true,
+		},
 	});
 
 	if (existingUser) {
@@ -28,14 +27,19 @@ export const register = async (body: TRegisterBody) => {
 
 	const password = await hashPassword(body.password);
 	const userInput = { ...body, password };
-	// @ts-ignore
-	const user = em.create(User, userInput);
-	em.persist(user);
-	// @ts-ignore
-	const role = em.create(Role, { user });
-	em.persist(role);
-	user.roles.add(role);
-	await em.flush();
+
+	const user = await prisma.user.create({
+		data: userInput,
+	});
+
+	const role = await prisma.role.create({
+		data: {
+			userId: user.id,
+		},
+		include: {
+			user: true,
+		},
+	});
 
 	const { jwtAccessToken, refreshToken } = await createAccessTokens(
 		user,

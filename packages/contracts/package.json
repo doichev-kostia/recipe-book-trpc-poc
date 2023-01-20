@@ -4,19 +4,19 @@
 	"description": "",
 	"private": true,
 	"scripts": {
-		"build": "rollup --config rollup.loader.cjs && tsc",
+		"build": "rollup --config rollup.config.ts --configPlugin rollup-plugin-esbuild && tsc",
 		"build:clean": "pnpm i && pnpm clean:build && pnpm build",
 		"clean:build": "pnpm rimraf build",
 		"clean:modules": "pnpm rimraf node_modules",
-		"watch": "concurrently --kill-others \"rollup --config rollup.loader.cjs -w \" \"tsc -w\""
+		"watch": "concurrently --kill-others \"rollup --config rollup.config.ts --configPlugin rollup-plugin-esbuild -w \" \"tsc -w\""
 	},
 	"types": "./build/index.d.ts",
-	"module": "./build/index.mjs",
+	"module": "./build/index.js",
 	"main": "./build/index.js",
 	"exports": {
 		".": {
 			"types": "./build/index.d.ts",
-			"import": "./build/index.mjs",
+			"import": "./build/index.js",
 			"default": "./build/index.js",
 			"commonjs": "./build/index.js"
 		},
@@ -26,8 +26,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"zod": "^3.19.1",
-		"@trpc-poc/database": "workspace:*"
+		"@trpc-poc/database": "workspace:*",
+		"zod": "^3.19.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.0.0",
@@ -36,6 +36,8 @@
 		"@rollup/plugin-babel": "^6.0.2",
 		"@rollup/plugin-commonjs": "^23.0.2",
 		"@rollup/plugin-node-resolve": "^15.0.1",
+		"rollup-plugin-esbuild": "^5.0.0",
+		"esbuild": "^0.16.12",
 		"@types/node": "18.11.11",
 		"concurrently": "^7.5.0",
 		"rimraf": "^3.0.2",

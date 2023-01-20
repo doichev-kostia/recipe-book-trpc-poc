@@ -19,13 +19,14 @@ export const authenticationRouter = router({
 		.output(RoleView)
 		.mutation(async ({ input, ctx }) => {
 			const { jwtAccessToken, refreshToken, role } = await register(
-				input
+				input,
+				ctx
 			);
 			setAuthenticationTokens(
 				ctx.res,
 				jwtAccessToken.token,
 				refreshToken.value
 			);
-			return role.toJSON();
+			return role;
 		}),
 });

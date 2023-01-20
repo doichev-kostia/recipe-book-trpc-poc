@@ -1,18 +1,37 @@
 {
 	"name": "@trpc-poc/database",
 	"version": "0.1.0",
-	"main": "./index.ts",
-	"types": "./index.ts",
+	"type": "module",
+	"main": "build/index.js",
+	"module": "build/index.js",
+	"types": "build/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./build/index.js",
+			"require": "./build/index.js",
+			"types": "./build/index.d.ts"
+		},
+		"./enums": {
+			"import": "./build/enums.js",
+			"require": "./build/enums.js",
+			"types": "./build/enums.d.ts"
+		},
+		"./package.json": "./package.json"
+	},
 	"scripts": {
+		"build": "pnpm run generate-enums && tsc",
+		"build:clean": "rm -rf build && pnpm run build",
 		"clean": "rm -rf .turbo node_modules",
 		"db:generate": "prisma generate",
 		"db:push": "prisma db push --skip-generate",
-		"postinstall": "prisma generate"
+		"postinstall": "prisma generate",
+		"generate-enums": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/extract-enums.ts"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.8.0"
 	},
 	"devDependencies": {
-		"prisma": "^4.8.0"
+		"prisma": "^4.8.0",
+		"tsx": "^3.12.1"
 	}
 }

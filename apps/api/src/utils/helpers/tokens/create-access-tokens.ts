@@ -1,17 +1,26 @@
 import { AccessTokenData, RoleType, TokenType } from "@trpc-poc/contracts";
-
-import { getEm } from "utils/request-context-manager";
+import { prisma, Role, User } from "@trpc-poc/database";
 import { createSimpleAccessToken } from "./create-simple-access-token";
-import { User } from "entities/user.entity";
-import { RefreshToken } from "entities/token/refresh-token.entity";
 import { TRPCError } from "@trpc/server";
+import crypto from "crypto";
 
 export const createAccessTokens = async (user: User, roleType: RoleType) => {
-	const em = getEm();
-	await em.populate(user, ["roles"]);
+	const u = await prisma.user.findUniqueOrThrow({
+		where: {
+			id: user.id,
+		},
+		include: {
+			roles: true,
+		},
+	});
 
-	const roles = user.roles.toArray().map((r) => r.type);
-	const role = user.roles.toArray().find((r) => r.type === roleType);
+	let role: Role | undefined;
+	const roles = u.roles.map((r) => {
+		if (r.type === roleType) {
+			role = r;
+		}
+		return r.type;
+	});
 
 	if (!role) {
 		throw new TRPCError({
@@ -35,15 +44,16 @@ export const createAccessTokens = async (user: User, roleType: RoleType) => {
 		accessTokenData
 	);
 
-	// @ts-ignore
-	const refreshToken = em.create(RefreshToken, {
-		expiresAt: new Date(
-			Date.now() + Number(process.env.REFRESH_TOKEN_LIFETIME)
-		),
-		user: user.id,
+	const refreshToken = await prisma.token.create({
+		data: {
+			value: crypto.randomBytes(120).toString("hex").substring(120),
+			type: TokenType.refresh,
+			expiresAt: new Date(
+				Date.now() + Number(process.env.REFRESH_TOKEN_LIFETIME)
+			),
+			userId: user.id,
+		},
 	});
-
-	await em.persistAndFlush([refreshToken, user]);
 
 	return {
 		user,

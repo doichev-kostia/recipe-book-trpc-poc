@@ -1,43 +1,40 @@
-import path from "path";
 import { RollupOptions } from "rollup";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+import esbuildPlugin from "rollup-plugin-esbuild";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import commonJS from "@rollup/plugin-commonjs";
-import babel from "@rollup/plugin-babel";
 
-const root = path.resolve(__dirname, ".");
-const src = path.resolve(root, "src");
-const build = path.resolve(root, "build");
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
+const src = path.resolve(__dirname, "src");
+const build = path.resolve(__dirname, "build");
 const entry = path.resolve(src, "index.ts");
 
-const babelPlugin = babel({
-	babelHelpers: "bundled",
-	exclude: /node_modules/,
-	extensions: [".ts", ".tsx"],
-});
+/**
+ * Go to @trpc-poc/db package and transpile it
+ * Get only enums from it
+ * Put them in @trpc-poc/contracts package
+ */
 
 const config: RollupOptions = {
 	input: entry,
-	output: [
-		{
-			format: "esm",
-			file: `${build}/index.mjs`,
-			sourcemap: true,
-		},
-		{
-			format: "esm",
-			file: `${build}/index.esm.js`,
-			sourcemap: true,
-		},
-		{
-			format: "cjs",
-			file: `${build}/index.js`,
-			sourcemap: true,
-			exports: "named",
-		},
-	],
+
+	output: {
+		format: "esm",
+		dir: build,
+		sourcemap: true,
+	},
 	plugins: [
-		babelPlugin,
-		nodeResolve({ extensions: [".ts", ".tsx"] }),
+		esbuildPlugin({
+			include: /\.[jt]sx?$/,
+			sourceMap: true,
+			minify: process.env.NODE_ENV === "production",
+			target: "es2020",
+			tsconfig: "tsconfig.json",
+			platform: "browser",
+		}),
+		nodeResolve({ extensions: [".js", ".ts"] }),
 		commonJS(),
 	],
 };
