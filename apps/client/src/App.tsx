@@ -3,8 +3,8 @@ import { httpBatchLink } from "@trpc/client";
 import React, { useState } from "react";
 import { trpc } from "./utils/trpc";
 import "./App.css";
-// import HomePage from "pages";
-import AboutPage from "pages/about";
+import { router } from "./router";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
 	const [queryClient] = useState(() => new QueryClient());
@@ -20,7 +20,7 @@ function App() {
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<AboutPage />
+				<RouterProvider router={router} />
 			</QueryClientProvider>
 		</trpc.Provider>
 	);
