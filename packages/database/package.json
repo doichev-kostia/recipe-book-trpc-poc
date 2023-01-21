@@ -2,36 +2,24 @@
 	"name": "@trpc-poc/database",
 	"version": "0.1.0",
 	"type": "module",
-	"main": "build/index.js",
-	"module": "build/index.js",
-	"types": "build/index.d.ts",
-	"exports": {
-		".": {
-			"import": "./build/index.js",
-			"require": "./build/index.js",
-			"types": "./build/index.d.ts"
-		},
-		"./enums": {
-			"import": "./build/enums.js",
-			"require": "./build/enums.js",
-			"types": "./build/enums.d.ts"
-		},
-		"./package.json": "./package.json"
-	},
+	"main": "./index.ts",
+	"types": "./index.ts",
 	"scripts": {
-		"build": "pnpm run generate-enums && tsc",
-		"build:clean": "rm -rf build && pnpm run build",
-		"clean": "rm -rf .turbo node_modules",
-		"db:generate": "prisma generate",
+		"esm": "rm -rf ./prisma/generated/prisma-client-es && rollup -c rollup.config.js && cp ./prisma/generated/prisma-client/index.d.ts ./prisma/generated/prisma-client-es/index.d.ts",
+		"db:generate": "pnpm run db:generate:clean && pnpm run esm",
+		"db:generate:clean": "prisma generate",
 		"db:push": "prisma db push --skip-generate",
-		"postinstall": "prisma generate",
-		"generate-enums": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/extract-enums.ts"
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.8.0"
 	},
 	"devDependencies": {
+		"@rollup/plugin-commonjs": "^23.0.2",
 		"prisma": "^4.8.0",
-		"tsx": "^3.12.1"
+		"rollup": "^2.79.1",
+		"rollup-plugin-dts": "^5.1.1",
+		"tsx": "^3.12.1",
+		"typescript": "^4.6.4"
 	}
 }

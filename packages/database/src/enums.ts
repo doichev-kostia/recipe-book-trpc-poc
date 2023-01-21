@@ -1,1 +1,0 @@
-export {RoleType, TokenType} from "@prisma/client";
