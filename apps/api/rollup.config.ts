@@ -4,6 +4,8 @@ import esbuildPlugin from "rollup-plugin-esbuild";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
+import json from "@rollup/plugin-json";
+import commonjs from "@rollup/plugin-commonjs";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -72,6 +74,8 @@ const config: RollupOptions = {
 			],
 			customResolver: resolveId,
 		}),
+		json(),
+		commonjs(),
 		esbuildPlugin({
 			include: /\.[jt]sx?$/,
 			sourceMap: true,
@@ -80,9 +84,6 @@ const config: RollupOptions = {
 			tsconfig: "tsconfig.json",
 			platform: "node",
 		}),
-		// typescript({
-		// 	tsconfig: path.resolve(__dirname, "tsconfig.json"),
-		// }),
 	],
 };
 

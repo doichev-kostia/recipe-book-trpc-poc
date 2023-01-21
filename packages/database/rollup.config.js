@@ -1,17 +1,26 @@
+import esbuildPlugin from "rollup-plugin-esbuild";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 
-const BASE_FOLDER = "prisma/generated/prisma-client";
-const OUT_FOLDER = "prisma/generated/prisma-client-es";
+export default {
+	input: "index.ts",
+	output: {
+		file: "dist/index.js",
+		format: "esm",
+	},
 
-const config = ({ filename, plugins }) => {
-	return {
-		input: [`${BASE_FOLDER}/${filename}`],
-		output: {
-			file: `${OUT_FOLDER}/${filename}`,
-			format: "es",
-		},
-		plugins: [...plugins],
-	};
+	plugins: [
+		nodeResolve({
+			extensions: [".js", ".ts"],
+		}),
+		commonjs(),
+		esbuildPlugin({
+			include: /\.[jt]sx?$/,
+			sourceMap: true,
+			minify: process.env.NODE_ENV === "production",
+			target: "es2020",
+			tsconfig: "tsconfig.json",
+			platform: "browser",
+		}),
+	],
 };
-
-export default [config({ filename: "index.js", plugins: [commonjs()] })];

@@ -37,7 +37,7 @@ const enumsLoader: Plugin = {
 			.join("/");
 
 		const content = await fs.promises.readFile(
-			`${pkg}/prisma/generated/prisma-client-es/index.js`,
+			`${pkg}/prisma/generated/prisma-client/index.js`,
 			"utf-8"
 		);
 
