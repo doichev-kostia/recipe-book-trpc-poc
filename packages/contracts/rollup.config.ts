@@ -1,20 +1,15 @@
 import { Plugin, RollupOptions } from "rollup";
 import esbuildPlugin from "rollup-plugin-esbuild";
 
-import { promisify } from "node:util";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as fs from "node:fs";
-
-import resolve from "resolve";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const src = path.resolve(__dirname, "src");
 const build = path.resolve(__dirname, "build");
 const entry = path.resolve(src, "index.ts");
-
-const resolveImportPath = promisify(resolve);
 
 // extract prisma enums
 const enumsLoader: Plugin = {
@@ -23,42 +18,29 @@ const enumsLoader: Plugin = {
 		const match = code.match(/export {.*} from "@trpc-poc\/database";/);
 		if (!match) return code;
 
-		// get values inside the { }
-		let enums = code.match(/(?<=\{ ).*(?=\s\})/);
-
-		if (!enums) return code;
-
-		enums = enums[0].split(", ");
-
-		const pkg: string = (await resolveImportPath("@trpc-poc/database"))
-			// truncate the path to the main package file
-			.split("/")
-			.slice(0, -1)
-			.join("/");
+		const pkg = path.resolve(__dirname, "node_modules/@trpc-poc/database");
 
 		const content = await fs.promises.readFile(
-			`${pkg}/prisma/generated/prisma-client/index.js`,
+			`${pkg}/prisma/schema.prisma`,
 			"utf-8"
 		);
 
+		const enums = content.match(/enum\s+\w+\s+\{[\s\S]*?\}/g);
+
 		let enumsContent = "";
 
-		for (const enumName of enums) {
-			const regex = new RegExp(
-				`exports.${enumName} = makeEnum\\((.|\\n)*?\\);`,
-				"m"
-			);
-			const enumMatch = content.match(regex);
-			if (!enumMatch)
-				throw new Error(
-					`Enum ${enumName} not found in @trpc-poc/database package`
-				);
+		for (const en of enums) {
+			const name = en.match(/enum\s+(\w+)\s+\{/)[1];
 
-			const enumContent = enumMatch[0]
-				.match(/(?<=\()(.|\n)*(?=\))/)?.[0]
-				.replaceAll(":", " =");
+			const values = en
+				.match(/enum\s+\w+\s+\{([\s\S]*?)\}/)[1]
+				.split("\n")
+				.map((v) => v.trim())
+				.filter(Boolean);
 
-			enumsContent += `export enum ${enumName} ${enumContent};\n\n`;
+			enumsContent += `export enum ${name} {\n${values
+				.map((v) => `\t${v} = "${v}"`)
+				.join(",\n")}\n}\n`;
 		}
 
 		return enumsContent;
