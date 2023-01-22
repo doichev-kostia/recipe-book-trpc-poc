@@ -7,11 +7,13 @@ export const createContext = ({
 	req,
 	res,
 }: trpcExpress.CreateExpressContextOptions) => {
-	const accessToken = req.headers["x-auth"];
+	const accessToken = req.headers["x-auth"] as string | undefined;
+	const refreshToken = req.headers["x-refresh-token"] as string | undefined;
 
 	return {
 		res,
 		accessToken,
+		refreshToken,
 		prisma,
 	};
 };
