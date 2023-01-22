@@ -1,12 +1,8 @@
 {
+	"extends": "./tsconfig.base.json",
 	"include": [
 		"./src/**/*",
-		"./types/**/*",
-		"./rollup.config.ts"
-	],
-	"exclude": [
-		"node_modules",
-		"build",
+		"./types/**/*"
 	],
 	"compilerOptions": {
 		"typeRoots": [
@@ -19,39 +15,17 @@
 			"jest",
 			"express"
 		],
-		"composite": true,
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"allowSyntheticDefaultImports": true,
-		"target": "ESNext",
-		"resolveJsonModule": true,
-		"declaration": true,
-		"declarationMap": true,
 		"declarationDir": "./build",
-		"strictPropertyInitialization": false,
-		"allowJs": true,
-		"checkJs": true,
-		"strict": true,
-		"sourceMap": true,
-		"esModuleInterop": true,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-//		"emitDeclarationOnly": true,
-		"incremental": true,
-		"tsBuildInfoFile": "./build/.cache/buildInfo.json",
-		"lib": [
-			"es2019",
-			"es6",
-			"dom",
-			"dom.iterable"
-		],
 		"baseUrl": "./src",
 		"rootDir": "./src",
 		"outDir": "./build",
+		"tsBuildInfoFile": "./build/.tsbuildinfo",
 		"paths": {
 			"*": ["./*"]
 		},
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true,
+		"emitDeclarationOnly": true
 	},
 }

@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"composite": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"allowSyntheticDefaultImports": true,
+		"target": "ESNext",
+		"resolveJsonModule": true,
+		"strictPropertyInitialization": false,
+		"allowJs": true,
+		"checkJs": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"incremental": true,
+		"lib": [
+			"es2019",
+			"es6",
+			"dom",
+			"dom.iterable"
+		],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true
+	},
+	"exclude": [
+		"node_modules",
+		"build",
+	]
+}
