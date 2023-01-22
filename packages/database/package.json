@@ -4,13 +4,13 @@
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
-	"types": "./index.ts",
+	"types": "./dist/index.d.ts",
 	"scripts": {
-		"build": "rollup -c rollup.config.js",
-		"db:generate": "pnpm run db:generate:clean",
+		"build": "rollup -c rollup.config.js && tsc",
+		"db:generate": "pnpm run db:generate:clean && pnpm run build",
 		"db:generate:clean": "prisma generate --schema=./prisma/schema.prisma",
 		"db:push": "prisma db push --skip-generate",
-		"postinstall": "prisma generate"
+		"postinstall": "pnpm run db:generate"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.8.0"

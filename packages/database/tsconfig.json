@@ -26,6 +26,8 @@
 		"jsx": "preserve",
 		"incremental": true,
 		"noUncheckedIndexedAccess": true,
+		"emitDeclarationOnly": true,
+		"outDir": "dist",
 	},
 	"exclude": ["node_modules", "build"]
 }
