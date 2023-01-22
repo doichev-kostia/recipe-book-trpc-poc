@@ -1,8 +1,11 @@
 import { router } from "../../trpc";
-import { publicProcedure } from "procedures";
-import { RegisterBody, RoleView } from "@trpc-poc/contracts";
+import { protectedProcedure, publicProcedure } from "procedures";
+import { LoginBody, RegisterBody, RoleView } from "@trpc-poc/contracts";
 import { register } from "./procedures/register.procedure";
 import { Response } from "express";
+import { login } from "./procedures/login.procedure";
+import { refreshToken } from "./procedures/refreshToken.procedure";
+import { TRPCError } from "@trpc/server";
 
 const setAuthenticationTokens = (
 	res: Response,
@@ -29,4 +32,39 @@ export const authenticationRouter = router({
 			);
 			return role;
 		}),
+	login: publicProcedure
+		.input(LoginBody)
+		.output(RoleView)
+		.mutation(async ({ input, ctx }) => {
+			const { role, jwtAccessToken, refreshToken } = await login(
+				input,
+				ctx
+			);
+			setAuthenticationTokens(
+				ctx.res,
+				jwtAccessToken.token,
+				refreshToken.value
+			);
+			return role;
+		}),
+	refreshToken: protectedProcedure.mutation(async ({ ctx }) => {
+		if (!ctx.refreshToken) {
+			throw new TRPCError({
+				code: "BAD_REQUEST",
+				message: "Invalid refresh token",
+				cause: "invalidRefreshToken",
+			});
+		}
+
+		const { jwtAccessToken } = await refreshToken(
+			ctx.tokenData,
+			ctx.refreshToken,
+			ctx
+		);
+		setAuthenticationTokens(
+			ctx.res,
+			jwtAccessToken.token,
+			ctx.refreshToken
+		);
+	}),
 });

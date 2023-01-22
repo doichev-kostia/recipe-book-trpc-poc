@@ -34,6 +34,7 @@ export const register = async (body: TRegisterBody, { prisma }: Context) => {
 
 	const role = await prisma.role.create({
 		data: {
+			type: RoleType.user,
 			userId: user.id,
 		},
 		include: {
