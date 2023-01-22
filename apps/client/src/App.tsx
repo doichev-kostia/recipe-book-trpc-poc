@@ -1,8 +1,7 @@
+import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import React, { useState } from "react";
 import { trpc } from "./utils/trpc";
-import "./App.css";
 import { router } from "./router";
 import { RouterProvider } from "react-router-dom";
 
