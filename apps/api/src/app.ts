@@ -37,6 +37,8 @@ export class App {
 		this.host.use(
 			cors({
 				origin: true,
+				credentials: true,
+				exposedHeaders: ["x-auth", "x-refresh-token"],
 			})
 		);
 
