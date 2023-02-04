@@ -27,21 +27,15 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@trpc-poc/database": "workspace:*",
-		"zod": "^3.19.1"
+		"zod": "^3.20.2"
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^23.0.2",
-		"@rollup/plugin-node-resolve": "^15.0.1",
 		"@types/node": "18.11.11",
-		"@types/resolve": "^1.20.2",
 		"concurrently": "^7.5.0",
 		"esbuild": "^0.16.12",
-		"resolve": "^1.22.1",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.79.1",
 		"rollup-plugin-esbuild": "^5.0.0",
-		"ts-node": "^10.9.1",
 		"typescript": "^4.6.4"
 	}
 }

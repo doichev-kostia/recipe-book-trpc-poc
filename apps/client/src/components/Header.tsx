@@ -10,9 +10,21 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { MenuBook } from "@mui/icons-material";
+import { getTokenData } from "../utils/token";
+import { trpc } from "../utils/trpc";
 
 const settings = ["Profile", "Logout"];
 export const Header = () => {
+	const tokenData = getTokenData();
+	const isAuthenticated = !!tokenData;
+
+	const { data, isLoading } = trpc.users.getUser.useQuery(
+		tokenData?.userId || "",
+		{
+			enabled: isAuthenticated,
+		}
+	);
+
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -58,46 +70,48 @@ export const Header = () => {
 						</Typography>
 					</div>
 
-					<Box sx={{ flexGrow: 0 }}>
-						<Tooltip title="Open settings">
-							<IconButton
-								onClick={handleOpenUserMenu}
-								sx={{ p: 0 }}
-							>
-								<Avatar
-									alt="Remy Sharp"
-									src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
-								/>
-							</IconButton>
-						</Tooltip>
-						<Menu
-							sx={{ mt: "45px" }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						>
-							{settings.map((setting) => (
-								<MenuItem
-									key={setting}
-									onClick={handleCloseUserMenu}
+					{isAuthenticated && (
+						<Box sx={{ flexGrow: 0 }}>
+							<Tooltip title="Open settings">
+								<IconButton
+									onClick={handleOpenUserMenu}
+									sx={{ p: 0 }}
 								>
-									<Typography textAlign="center">
-										{setting}
-									</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
+									<Avatar
+										alt="Remy Sharp"
+										src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
+									/>
+								</IconButton>
+							</Tooltip>
+							<Menu
+								sx={{ mt: "45px" }}
+								id="menu-appbar"
+								anchorEl={anchorElUser}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={Boolean(anchorElUser)}
+								onClose={handleCloseUserMenu}
+							>
+								{settings.map((setting) => (
+									<MenuItem
+										key={setting}
+										onClick={handleCloseUserMenu}
+									>
+										<Typography textAlign="center">
+											{setting}
+										</Typography>
+									</MenuItem>
+								))}
+							</Menu>
+						</Box>
+					)}
 				</Toolbar>
 			</Container>
 		</AppBar>

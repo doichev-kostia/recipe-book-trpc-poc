@@ -3,9 +3,10 @@ import aliasPlugin from "@rollup/plugin-alias";
 import esbuildPlugin from "rollup-plugin-esbuild";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import fs from "node:fs";
+import * as fs from "node:fs";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
@@ -76,6 +77,9 @@ const config: RollupOptions = {
 		}),
 		json(),
 		commonjs(),
+		nodeResolve({
+			resolveOnly: (module) => module.includes("@trpc-poc/database"),
+		}),
 		esbuildPlugin({
 			include: /\.[jt]sx?$/,
 			sourceMap: true,

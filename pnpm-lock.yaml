@@ -67,7 +67,7 @@ importers:
       typescript: ^4.6.4
       uuid: ^9.0.0
       vite: ^3.2.0
-      zod: ^3.19.1
+      zod: ^3.20.2
     dependencies:
       '@panenco/papi': 1.3.0_usuxrwvda6q7j7sqgexwrl42mu
       '@rollup/plugin-node-resolve': 15.0.1_rollup@2.79.1
@@ -88,7 +88,7 @@ importers:
       reflect-metadata: 0.1.13
       source-map-support: 0.5.21
       uuid: 9.0.0
-      zod: 3.19.1
+      zod: 3.20.2
     devDependencies:
       '@faker-js/faker': 7.6.0
       '@jest/globals': 29.3.1
@@ -134,14 +134,19 @@ importers:
       '@tanstack/react-query': ^4.13.5
       '@trpc-poc/api': workspace:*
       '@trpc-poc/contracts': workspace:*
+      '@trpc-poc/database': workspace:*
       '@trpc/client': 10.0.0-proxy-beta.26
       '@trpc/react-query': 10.0.0-proxy-beta.26
       '@trpc/server': 10.0.0-proxy-beta.26
+      '@types/js-cookie': ^3.0.2
+      '@types/jwt-decode': ^3.1.0
       '@types/node': 18.11.11
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       '@vitejs/plugin-react': ^2.2.0
       autoprefixer: ^10.4.13
+      js-cookie: ^3.0.1
+      jwt-decode: ^3.1.2
       postcss: ^8.4.21
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -161,11 +166,14 @@ importers:
       '@tanstack/react-query': 4.14.6_biqbaboplfbrettd7655fr4n2y
       '@trpc-poc/api': link:../api
       '@trpc-poc/contracts': link:../../packages/contracts
+      '@trpc-poc/database': link:../../packages/database
       '@trpc/client': 10.0.0-proxy-beta.26_vu5ifdrqz65hq4g32lr3d5gbm4
       '@trpc/react-query': 10.0.0-proxy-beta.26_wvqr6rrwmlc3k6pre4wpfdk6dm
       '@trpc/server': 10.0.0-proxy-beta.26
       '@types/node': 18.11.11
       autoprefixer: 10.4.13_postcss@8.4.21
+      js-cookie: 3.0.1
+      jwt-decode: 3.1.2
       postcss: 8.4.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -174,6 +182,8 @@ importers:
       tailwindcss: 3.2.4_postcss@8.4.21
       zod: 3.19.1
     devDependencies:
+      '@types/js-cookie': 3.0.2
+      '@types/jwt-decode': 3.1.0
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.8
       '@vitejs/plugin-react': 2.2.0_vite@3.2.3
@@ -182,58 +192,34 @@ importers:
 
   packages/contracts:
     specifiers:
-      '@rollup/plugin-commonjs': ^23.0.2
-      '@rollup/plugin-node-resolve': ^15.0.1
-      '@trpc-poc/database': workspace:*
       '@types/node': 18.11.11
-      '@types/resolve': ^1.20.2
       concurrently: ^7.5.0
       esbuild: ^0.16.12
-      resolve: ^1.22.1
       rimraf: ^3.0.2
       rollup: ^2.79.1
       rollup-plugin-esbuild: ^5.0.0
-      ts-node: ^10.9.1
       typescript: ^4.6.4
-      zod: ^3.19.1
+      zod: ^3.20.2
     dependencies:
-      '@trpc-poc/database': link:../database
-      zod: 3.19.1
+      zod: 3.20.2
     devDependencies:
-      '@rollup/plugin-commonjs': 23.0.2_rollup@2.79.1
-      '@rollup/plugin-node-resolve': 15.0.1_rollup@2.79.1
       '@types/node': 18.11.11
-      '@types/resolve': 1.20.2
       concurrently: 7.5.0
       esbuild: 0.16.12
-      resolve: 1.22.1
       rimraf: 3.0.2
       rollup: 2.79.1
       rollup-plugin-esbuild: 5.0.0_m2heokrvjr2tfyvdy57eoypmee
-      ts-node: 10.9.1_5wyqbr5ddly62zcv3ehcsfny4y
       typescript: 4.8.4
 
   packages/database:
     specifiers:
       '@prisma/client': ^4.8.0
-      '@rollup/plugin-commonjs': ^23.0.2
-      '@rollup/plugin-node-resolve': ^15.0.1
-      esbuild: ^0.16.12
       prisma: ^4.8.0
-      rollup: ^2.79.1
-      rollup-plugin-esbuild: ^5.0.0
-      tsx: ^3.12.1
       typescript: ^4.6.4
     dependencies:
       '@prisma/client': 4.8.0_prisma@4.8.0
     devDependencies:
-      '@rollup/plugin-commonjs': 23.0.2_rollup@2.79.1
-      '@rollup/plugin-node-resolve': 15.0.1_rollup@2.79.1
-      esbuild: 0.16.12
       prisma: 4.8.0
-      rollup: 2.79.1
-      rollup-plugin-esbuild: 5.0.0_m2heokrvjr2tfyvdy57eoypmee
-      tsx: 3.12.1
       typescript: 4.8.4
 
 packages:
@@ -1580,6 +1566,7 @@ packages:
       is-module: 1.0.0
       resolve: 1.22.1
       rollup: 2.79.1
+    dev: false
 
   /@rollup/plugin-typescript/10.0.1_ee2lsxs7bbggrcawnn34dqpc4e:
     resolution: {integrity: sha512-wBykxRLlX7EzL8BmUqMqk5zpx2onnmRMSw/l9M1sVfkJvdwfxogZQVNUM9gVMJbjRLDR5H6U0OMOrlDGmIV45A==}
@@ -1806,11 +1793,22 @@ packages:
       pretty-format: 29.3.1
     dev: true
 
+  /@types/js-cookie/3.0.2:
+    resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
+    dev: true
+
   /@types/jsonwebtoken/9.0.1:
     resolution: {integrity: sha512-c5ltxazpWabia/4UzhIoaDcIza4KViOQhdbjRlfcIGVnsE3c3brkz9Z+F/EeJIECOQP7W7US2hNE930cWWkPiw==}
     dependencies:
       '@types/node': 18.11.11
     dev: false
+
+  /@types/jwt-decode/3.1.0:
+    resolution: {integrity: sha512-tthwik7TKkou3mVnBnvVuHnHElbjtdbM63pdBCbZTirCt3WAdM73Y79mOri7+ljsS99ZVwUFZHLMxJuJnv/z1w==}
+    deprecated: This is a stub types definition. jwt-decode provides its own type definitions, so you do not need this installed.
+    dependencies:
+      jwt-decode: 3.1.2
+    dev: true
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
@@ -1865,6 +1863,7 @@ packages:
 
   /@types/resolve/1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
+    dev: false
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
@@ -2225,6 +2224,7 @@ packages:
   /builtin-modules/3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
+    dev: false
 
   /busboy/0.2.14:
     resolution: {integrity: sha512-InWFDomvlkEj+xWLBfU3AvnbVYqeTWmQopiW0tWWEy5yehYm2YkGEc59sUmw/4ty5Zj/b0WHGs1LgecuBSBGrg==}
@@ -3454,6 +3454,7 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
+    dev: false
 
   /is-core-module/2.11.0:
     resolution: {integrity: sha512-RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==}
@@ -3489,6 +3490,7 @@ packages:
 
   /is-module/1.0.0:
     resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==}
+    dev: false
 
   /is-number/7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
@@ -3989,6 +3991,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /js-cookie/3.0.1:
+    resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
+    engines: {node: '>=12'}
+    dev: false
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -4064,6 +4071,9 @@ packages:
       jwa: 1.4.1
       safe-buffer: 5.2.1
     dev: false
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
 
   /keygrip/1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
@@ -5897,4 +5907,8 @@ packages:
 
   /zod/3.19.1:
     resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false
+
+  /zod/3.20.2:
+    resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
     dev: false

@@ -23,7 +23,7 @@
 		"incremental": true,
 		"skipLibCheck": true,
 		"baseUrl": "./src",
-		"rootDir": "./src",
+		"rootDir": "./src"
 	},
 	"include": [
 		"src/**/*",

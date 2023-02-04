@@ -14,6 +14,8 @@ const setAuthenticationTokens = (
 ) => {
 	res.header("x-auth", jwtAccessToken);
 	res.header("x-refresh-token", refreshToken);
+	res.cookie("x-auth", jwtAccessToken);
+	res.cookie("x-refresh-token", refreshToken);
 };
 
 export const authenticationRouter = router({

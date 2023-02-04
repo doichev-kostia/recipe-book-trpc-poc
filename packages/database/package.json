@@ -2,12 +2,10 @@
 	"name": "@trpc-poc/database",
 	"version": "0.1.0",
 	"type": "module",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./index.ts",
+	"types": "./index.ts",
 	"scripts": {
-		"build": "rollup -c rollup.config.js && tsc",
-		"db:generate": "pnpm run db:generate:clean && pnpm run build",
+		"db:generate": "pnpm run db:generate:clean",
 		"db:generate:clean": "prisma generate --schema=./prisma/schema.prisma",
 		"db:push": "prisma db push --skip-generate",
 		"postinstall": "pnpm run db:generate"
@@ -16,13 +14,7 @@
 		"@prisma/client": "^4.8.0"
 	},
 	"devDependencies": {
-		"@rollup/plugin-node-resolve": "^15.0.1",
-		"@rollup/plugin-commonjs": "^23.0.2",
 		"prisma": "^4.8.0",
-		"rollup": "^2.79.1",
-		"tsx": "^3.12.1",
-		"esbuild": "^0.16.12",
-		"rollup-plugin-esbuild": "^5.0.0",
 		"typescript": "^4.6.4"
 	}
 }
