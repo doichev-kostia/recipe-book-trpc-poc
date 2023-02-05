@@ -145,6 +145,7 @@ importers:
       '@types/react-dom': ^18.0.7
       '@vitejs/plugin-react': ^2.2.0
       autoprefixer: ^10.4.13
+      immer: ^9.0.19
       js-cookie: ^3.0.1
       jwt-decode: ^3.1.2
       postcss: ^8.4.21
@@ -155,7 +156,8 @@ importers:
       tailwindcss: ^3.2.4
       typescript: ^4.6.4
       vite: ^3.2.0
-      zod: ^3.19.1
+      zod: ^3.20.2
+      zustand: ^4.3.2
     dependencies:
       '@babel/core': 7.20.2
       '@emotion/react': 11.10.5_cuziicjcvwawlf5iuhzacuhqcy
@@ -172,6 +174,7 @@ importers:
       '@trpc/server': 10.0.0-proxy-beta.26
       '@types/node': 18.11.11
       autoprefixer: 10.4.13_postcss@8.4.21
+      immer: 9.0.19
       js-cookie: 3.0.1
       jwt-decode: 3.1.2
       postcss: 8.4.21
@@ -180,7 +183,8 @@ importers:
       react-hook-form: 7.42.1_react@18.2.0
       react-router-dom: 6.7.0_biqbaboplfbrettd7655fr4n2y
       tailwindcss: 3.2.4_postcss@8.4.21
-      zod: 3.19.1
+      zod: 3.20.2
+      zustand: 4.3.2_immer@9.0.19+react@18.2.0
     devDependencies:
       '@types/js-cookie': 3.0.2
       '@types/jwt-decode': 3.1.0
@@ -3398,6 +3402,10 @@ packages:
     resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
     dev: true
 
+  /immer/9.0.19:
+    resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
+    dev: false
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -5905,10 +5913,23 @@ packages:
       commander: 2.20.3
     dev: false
 
-  /zod/3.19.1:
-    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
-    dev: false
-
   /zod/3.20.2:
     resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
+    dev: false
+
+  /zustand/4.3.2_immer@9.0.19+react@18.2.0:
+    resolution: {integrity: sha512-rd4haDmlwMTVWVqwvgy00ny8rtti/klRoZjFbL/MAcDnmD5qSw/RZc+Vddstdv90M5Lv6RPgWvm1Hivyn0QgJw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      immer: 9.0.19
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false

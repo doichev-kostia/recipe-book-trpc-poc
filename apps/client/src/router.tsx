@@ -1,37 +1,50 @@
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "pages";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import React from "react";
-import SignUp from "./pages/sign-up";
-import SignIn from "./pages/sign-in";
+import SignUp from "./routes/sign-up";
+import SignIn from "./routes/sign-in";
+import Dashboard from "./routes/dashboard";
+import { loader as singOutLoader } from "./routes/sign-out";
 import { Layout } from "./components/Layout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { RoleType } from "@trpc-poc/contracts";
 
 export const router = createBrowserRouter([
 	{
-		path: "/",
-		element: (
-			<ProtectedRoute allowedRoles={[RoleType.admin, RoleType.user]}>
-				<Layout>
-					<HomePage />
-				</Layout>
-			</ProtectedRoute>
-		),
-	},
-	{
-		path: "/sign-up",
 		element: (
 			<Layout>
-				<SignUp />
+				<Outlet />
 			</Layout>
 		),
-	},
-	{
-		path: "/sign-in",
-		element: (
-			<Layout>
-				<SignIn />
-			</Layout>
-		),
+		children: [
+			{
+				path: "/",
+				element: (
+					<ProtectedRoute allowedRoles={["admin", "user"]}>
+						<Outlet />
+					</ProtectedRoute>
+				),
+				children: [
+					{
+						index: true,
+						element: <Navigate to="/dashboard" />,
+					},
+					{
+						path: "dashboard",
+						element: <Dashboard />,
+					},
+				],
+			},
+			{
+				path: "/sign-up",
+				element: <SignUp />,
+			},
+			{
+				path: "/sign-in",
+				element: <SignIn />,
+			},
+			{
+				path: "/sign-out",
+				loader: singOutLoader,
+			},
+		],
 	},
 ]);

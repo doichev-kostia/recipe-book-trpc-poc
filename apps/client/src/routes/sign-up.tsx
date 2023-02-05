@@ -4,7 +4,7 @@ import { RegisterBody } from "@trpc-poc/contracts";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
-import { trpc } from "../utils/trpc";
+import { trpc } from "@/utils/trpc";
 
 const RegistrationSchema = RegisterBody.extend({
 	passwordConfirmation: z.string(),

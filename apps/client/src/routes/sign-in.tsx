@@ -13,12 +13,14 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { trpc } from "../utils/trpc";
+import { trpc } from "@/utils/trpc";
+import { useNavigate } from "react-router-dom";
 
 type Values = z.infer<typeof LoginBody>;
 
 const SignIn = () => {
 	const { mutate: login } = trpc.authentication.login.useMutation();
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -29,10 +31,17 @@ const SignIn = () => {
 	});
 
 	const onSubmit = handleSubmit((data) => {
-		login({
-			...data,
-			role: RoleType.user,
-		});
+		login(
+			{
+				...data,
+				role: RoleType.user,
+			},
+			{
+				onSuccess: () => {
+					navigate("/");
+				},
+			}
+		);
 	});
 
 	return (

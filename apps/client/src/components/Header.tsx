@@ -10,13 +10,16 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { MenuBook } from "@mui/icons-material";
-import { getTokenData } from "../utils/token";
-import { trpc } from "../utils/trpc";
+import { useTokenData } from "@/utils/token";
+import { trpc } from "@/utils/trpc";
+import { useNavigate } from "react-router-dom";
 
-const settings = ["Profile", "Logout"];
+const settings = ["Profile", "Logout"] as const;
 export const Header = () => {
-	const tokenData = getTokenData();
+	const tokenData = useTokenData();
 	const isAuthenticated = !!tokenData;
+
+	const navigate = useNavigate();
 
 	const { data, isLoading } = trpc.users.getUser.useQuery(
 		tokenData?.userId || "",
@@ -43,8 +46,11 @@ export const Header = () => {
 		setAnchorElNav(null);
 	};
 
-	const handleCloseUserMenu = () => {
+	const handleCloseUserMenu = (setting: typeof settings[number]) => {
 		setAnchorElUser(null);
+		if (setting === "Logout") {
+			navigate("/sign-out");
+		}
 	};
 	return (
 		<AppBar position="static">
@@ -102,7 +108,9 @@ export const Header = () => {
 								{settings.map((setting) => (
 									<MenuItem
 										key={setting}
-										onClick={handleCloseUserMenu}
+										onClick={() =>
+											handleCloseUserMenu(setting)
+										}
 									>
 										<Typography textAlign="center">
 											{setting}
