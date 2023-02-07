@@ -1,8 +1,7 @@
 import React from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { trpc, trpcClient } from "./utils/trpc";
-import { router } from "./router";
-import { RouterProvider } from "react-router-dom";
+import { AppRouter } from "./router";
 import { queryClient } from "./query-client";
 import CookieService from "@/utils/CookieService";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "@/constants";
@@ -20,7 +19,7 @@ function App() {
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
+				<AppRouter />
 			</QueryClientProvider>
 		</trpc.Provider>
 	);

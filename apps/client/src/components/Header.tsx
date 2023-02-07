@@ -13,6 +13,7 @@ import { MenuBook } from "@mui/icons-material";
 import { useTokenData } from "@/utils/token";
 import { trpc } from "@/utils/trpc";
 import { useNavigate } from "react-router-dom";
+import { getFullName } from "@/utils/helpers";
 
 const settings = ["Profile", "Logout"] as const;
 export const Header = () => {
@@ -21,7 +22,7 @@ export const Header = () => {
 
 	const navigate = useNavigate();
 
-	const { data, isLoading } = trpc.users.getUser.useQuery(
+	const { data: user, isLoading } = trpc.users.getUser.useQuery(
 		tokenData?.userId || "",
 		{
 			enabled: isAuthenticated,
@@ -50,6 +51,8 @@ export const Header = () => {
 		setAnchorElUser(null);
 		if (setting === "Logout") {
 			navigate("/sign-out");
+		} else if (setting === "Profile" && tokenData) {
+			navigate(`/profile/${tokenData.userId}`);
 		}
 	};
 	return (
@@ -84,9 +87,19 @@ export const Header = () => {
 									sx={{ p: 0 }}
 								>
 									<Avatar
-										alt="Remy Sharp"
-										src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
-									/>
+										alt={getFullName(
+											user?.firstName,
+											user?.lastName
+										)}
+										src={user?.avatarUrl ?? undefined}
+									>
+										{
+											getFullName(
+												user?.firstName,
+												user?.lastName
+											)[0]
+										}
+									</Avatar>
 								</IconButton>
 							</Tooltip>
 							<Menu

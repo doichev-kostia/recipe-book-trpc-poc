@@ -1,9 +1,10 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { createContext } from "./trpc";
 import { appRouter } from "./router";
+import { fileRouter } from "./routes/files/files.route";
 
 // TODO: REPLACE WITH REAL SENTRY
 const Sentry = {
@@ -43,6 +44,12 @@ export class App {
 		);
 
 		this.host.use(
+			"/api/files",
+			express.urlencoded({ extended: true }),
+			fileRouter
+		);
+
+		this.host.use(
 			"/trpc",
 			trpcExpress.createExpressMiddleware({
 				router: appRouter,
@@ -53,6 +60,22 @@ export class App {
 					}
 				},
 			})
+		);
+
+		this.host.use(
+			(
+				error: Error,
+				request: Request,
+				response: Response,
+				next: NextFunction
+			) => {
+				if (error) {
+					Sentry.captureException(error);
+					response.status(500).json({ error: error.message });
+				} else {
+					next();
+				}
+			}
 		);
 	}
 }

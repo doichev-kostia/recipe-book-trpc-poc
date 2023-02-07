@@ -21,7 +21,9 @@
 		"outDir": "./build",
 		"tsBuildInfoFile": "./build/.tsbuildinfo",
 		"paths": {
-			"*": ["./*"]
+			"*": [
+				"./*"
+			]
 		},
 		"declaration": true,
 		"declarationMap": true,

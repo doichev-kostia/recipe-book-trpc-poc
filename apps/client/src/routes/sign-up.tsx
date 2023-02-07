@@ -5,17 +5,21 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField } from "@mui/material";
 import { trpc } from "@/utils/trpc";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationSchema = RegisterBody.extend({
 	passwordConfirmation: z.string(),
-}).refine((data) => data.password === data.passwordConfirmation, {
-	message: "Passwords don't match",
-	path: ["passwordConfirmation"], // path of error
-});
+})
+	.required()
+	.refine((data) => data.password === data.passwordConfirmation, {
+		message: "Passwords don't match",
+		path: ["passwordConfirmation"], // path of error
+	});
 
 type Values = z.infer<typeof RegistrationSchema>;
 
 const SignUp = () => {
+	const navigate = useNavigate();
 	const { mutate: registerUser, isLoading } =
 		trpc.authentication.register.useMutation();
 
@@ -28,7 +32,11 @@ const SignUp = () => {
 	});
 
 	const onSubmit = handleSubmit((data) => {
-		registerUser(data);
+		registerUser(data, {
+			onSuccess: () => {
+				navigate("/");
+			},
+		});
 	});
 
 	return (

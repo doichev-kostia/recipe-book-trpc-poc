@@ -6,3 +6,11 @@ declare module "hash-files" {
 		callback: (error: Error | null, hash: string) => void
 	): void;
 }
+
+declare global {
+	namespace Express {
+		export interface Request {
+			file?: Express.Multer.File;
+		}
+	}
+}

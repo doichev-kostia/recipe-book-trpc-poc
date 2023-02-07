@@ -19,9 +19,9 @@
 		"@trpc-poc/api": "workspace:*",
 		"@trpc-poc/contracts": "workspace:*",
 		"@trpc-poc/database": "workspace:*",
-		"@trpc/client": "10.0.0-proxy-beta.26",
-		"@trpc/react-query": "10.0.0-proxy-beta.26",
-		"@trpc/server": "10.0.0-proxy-beta.26",
+		"@trpc/client": "10.9.1",
+		"@trpc/react-query": "10.9.1",
+		"@trpc/server": "10.9.1",
 		"@types/node": "18.11.11",
 		"autoprefixer": "^10.4.13",
 		"immer": "^9.0.19",
@@ -42,7 +42,7 @@
 		"@types/react": "^18.0.22",
 		"@types/react-dom": "^18.0.7",
 		"@vitejs/plugin-react": "^2.2.0",
-		"typescript": "^4.6.4",
+		"typescript": "^4.9.5",
 		"vite": "^3.2.0"
 	}
 }
